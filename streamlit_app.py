@@ -51,10 +51,10 @@ def preprocess_name(name, impute = False):
         if letter in ["B", "J", "O", "U", "X", "Z"]:
             if impute:
                 preprocessed_name += get_closest_letter(letter, previous_letter)
-                previous_letter = letter
         else:
             if letter in list(string.ascii_uppercase):
                 preprocessed_name += letter
+        previous_letter = letter
 
     return preprocessed_name
 
