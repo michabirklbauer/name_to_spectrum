@@ -13,6 +13,7 @@
 #####################################################
 """
 
+import string
 import streamlit as st
 from matplotlib import pyplot as plt
 import ms2pip.single_prediction
@@ -48,13 +49,12 @@ def preprocess_name(name, impute = False):
 
     for letter in name.upper():
         if letter in ["B", "J", "O", "U", "X", "Z"]:
-            if not impute:
-                continue
-            else:
+            if impute:
                 preprocessed_name += get_closest_letter(letter, previous_letter)
                 previous_letter = letter
         else:
-            preprocessed_name += letter
+            if letter in list(string.ascii_uppercase):
+                preprocessed_name += letter
 
     return preprocessed_name
 
@@ -89,12 +89,18 @@ def main_page():
 
     title = st.title("Name to Spectrum Generator")
 
-    name = st.text_input("Enter your Name:", "Aletheia", help = "Enter a name, word, sentence or any valid alphabetic string to generate a corresponding spectrum.")
+    col_1, col_2 = st.columns((7, 1))
 
-    impute = st.checkbox("Impute missing letters", value = False, help = "If letters that don't represent amino acids should be replaced by closest sounding letters.")
+    with col_1:
+        name = st.text_input("Enter your Name:", "Aletheia", help = "Enter a name, word, sentence or any valid alphabetic string to generate a corresponding spectrum.")
+
+    with col_2:
+        charge = st.selectbox("Charge:", ("1", "2", "3", "4", "5", "6"), help = "Charge of the given 'peptide'.")
+
+    impute = st.checkbox("Impute missing letters:", value = False, help = "If letters that don't represent amino acids should be replaced by closest sounding letters.")
 
     if st.button("Generate Spectrum!", help = "Generate spectrum with the given input."):
-        plot = st.pyplot(predict_spectrum(preprocess_name(name, impute)))
+        plot = st.pyplot(predict_spectrum(preprocess_name(name, impute), charge = int(charge)))
 
 # side bar and main page loader
 def main():
@@ -106,6 +112,8 @@ def main():
     A small tool to generate mass spectra from names, words, sentences or any alphabetic strings. Uses [MS2PIP](https://github.com/compomics/ms2pip_c) for spectrum prediction.
 
     **Contact:** [Micha Birklbauer](mailto:micha.birklbauer@gmail.com)
+
+    **GitHub:** [github.com/michabirklbauer/nametospectrum](https://github.com/michabirklbauer/nametospectrum/)
     """
 
     st.set_page_config(page_title = "Name to Spectrum Generator",
@@ -137,9 +145,6 @@ def main():
         [Study DSE](https://www.fh-ooe.at/campus-hagenberg/studiengaenge/master/data-science-und-engineering/)
         """
     socials = st.sidebar.markdown(socials_str)
-
-    contact_str = "**Contact:** [Micha Birklbauer](mailto:micha.birklbauer@gmail.com)"
-    contact = st.sidebar.markdown(contact_str)
 
     main_page()
 
