@@ -113,15 +113,15 @@ def main():
 
     **Contact:** [Micha Birklbauer](mailto:micha.birklbauer@gmail.com)
 
-    **GitHub:** [github.com/michabirklbauer/nametospectrum](https://github.com/michabirklbauer/nametospectrum/)
+    **GitHub:** [github.com/michabirklbauer/name-to-spectrum](https://github.com/michabirklbauer/name-to-spectrum/)
     """
 
     st.set_page_config(page_title = "Name to Spectrum Generator",
                        page_icon = ":test_tube:",
                        layout = "centered",
                        initial_sidebar_state = "expanded",
-                       menu_items = {"Get Help": "https://github.com/michabirklbauer/nametospectrum/discussions",
-                                     "Report a bug": "https://github.com/michabirklbauer/nametospectrum/issues",
+                       menu_items = {"Get Help": "https://github.com/michabirklbauer/name-to-spectrum/discussions",
+                                     "Report a bug": "https://github.com/michabirklbauer/name-to-spectrum/issues",
                                      "About": about_str}
                        )
 
