@@ -1,3 +1,4 @@
 matplotlib
 ms2pip
 streamlit
+numpy==1.20.3
