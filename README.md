@@ -13,7 +13,7 @@ prediction.
 
 ## License
 
-- [MIT]()
+- [MIT](https://github.com/michabirklbauer/name_to_spectrum/blob/master/LICENSE)
 
 ## Contact
 
